@@ -10,10 +10,11 @@ from telegram import Bot
 import time
 
 # Binance and Telegram API credentials
-BINANCE_API_KEY = 'your_binance_api_key'
-BINANCE_SECRET_KEY = 'your_binance_secret_key'
-TELEGRAM_TOKEN = 'your_telegram_token'
-TELEGRAM_CHAT_ID = 'your_chat_id'
+import os
+BINANCE_API_KEY = os.environ.get('binance_api')
+BINANCE_SECRET_KEY = os.environ.get('binance_secret')
+TELEGRAM_TOKEN = os.environ.get('telegram_token')
+TELEGRAM_CHAT_ID = os.environ.get('chat_id')
 
 # Initialize Binance and Telegram clients
 client = Client(BINANCE_API_KEY, BINANCE_SECRET_KEY)
