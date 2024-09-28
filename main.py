@@ -8,10 +8,10 @@ from datetime import datetime, timedelta
 # Binance and Telegram API credentials
 import os
 
-BINANCE_API_KEY = os.environ['B_API_KEY']
-BINANCE_SECRET_KEY = os.environ['B_SECRET_KEY']
-TELEGRAM_TOKEN = os.environ['telegram_token']
-TELEGRAM_CHAT_ID = os.environ['chat_id']
+BINANCE_API_KEY = os.environ.get('B_API_KEY')
+BINANCE_SECRET_KEY = os.environ.get('B_SECRET_KEY')
+TELEGRAM_TOKEN = os.environ.get('telegram_token')
+TELEGRAM_CHAT_ID = os.environ.get('chat_id')
 
 # Initialize Binance and Telegram clients
 client = Client(BINANCE_API_KEY, BINANCE_SECRET_KEY)
