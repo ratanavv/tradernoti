@@ -2,7 +2,3 @@ python-binance
 pandas
 ta
 python-telegram-bot
-pandas
-time
-binance.client
---upgrade pip
