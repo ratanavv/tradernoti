@@ -1,4 +1,4 @@
 python-binance
+requests
 pandas
 ta
-python-telegram-bot
