@@ -5,8 +5,8 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 from binance.client import Client
 
 # Initialize Binance client
-binance_api_key = 'YOUR_BINANCE_API_KEY'
-binance_api_secret = 'YOUR_BINANCE_API_SECRET'
+binance_api_key = 'H2zuWdkpm7tyUFnBOZRwj29tFfXrBXXgm7gsu3p4kqFR7EkW38PvODdJt2B1WqVv'
+binance_api_secret = 'Rrv5MtPfpxekKDoAVaKqklGipxk2I83Fr6XNJsFHscBqP52MYeLO4FomfbZmVzKl'
 client = Client(binance_api_key, binance_api_secret)
 
 # Function to get top 30 futures trading pairs by volume
@@ -58,7 +58,7 @@ def alert(update: Update, context: CallbackContext) -> None:
 
 def main():
     # Initialize bot
-    updater = Updater("YOUR_TELEGRAM_BOT_TOKEN")
+    updater = Updater("7733779461:AAGQG4bw5u75tjaezh8EkBicS-rHAaoKRXQ")
     dispatcher = updater.dispatcher
 
     # Add command handler
