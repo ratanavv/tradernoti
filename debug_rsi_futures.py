@@ -25,11 +25,10 @@ def main():
     for symbol, ticker in tickers.items():
         if symbol not in markets:
             continue
-        market = markets[symbol]
-        if (market.get('quote') == 'USDT'
-            and market.get('contract')
-            and market.get('future')
-            and market.get('info', {}).get('contractType') == 'PERPETUAL'):
+    # Filter for perpetual futures ending in ':USDT' and exclude dated contracts
+        if symbol.endswith(':USDT') and '-' not in symbol:
+            market = markets[symbol]
+        if (market.get('quote') == 'USDT' and market.get('contract') and market.get('future')):
             ticker_volume = ticker.get('quoteVolume', 0)
             if ticker_volume:
                 symbols.append((symbol, ticker_volume))
