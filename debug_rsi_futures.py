@@ -3,6 +3,7 @@ import time
 import pandas as pd
 from ta.momentum import RSIIndicator
 
+# Initialize Binance futures via CCXT
 binance = ccxt.binance({
     'enableRateLimit': True,
     'options': {'defaultType': 'future'}
@@ -20,22 +21,25 @@ def main():
     markets = binance.load_markets()
     tickers = binance.fetch_tickers()
 
-    # Filter USDT perpetual futures only
-    symbols = []
-    for symbol, ticker in tickers.items():
-        if symbol not in markets:
-            continue
-    # Filter for perpetual futures ending in ':USDT' and exclude dated contracts
-        if symbol.endswith(':USDT') and '-' not in symbol:
-            market = markets[symbol]
-        if (market.get('quote') == 'USDT' and market.get('contract') and market.get('future')):
-            ticker_volume = ticker.get('quoteVolume', 0)
-            if ticker_volume:
-                symbols.append((symbol, ticker_volume))
+    # Filter true USDT futures markets via CCXT properties
+    futures_markets = [
+        m for m in markets.values()
+        if m.get('future') is True
+        and m.get('spot') is False
+        and m.get('quote') == 'USDT'
+    ]
 
-    # Sort by volume descending and select top 5
-    top_symbols = [s for s, _ in sorted(symbols, key=lambda x: x[1], reverse=True)[:5]]
+    # Build list of (symbol, quoteVolume) pairs
+    vol_list = []
+    for m in futures_markets:
+        symbol = m['symbol']
+        ticker = tickers.get(symbol, {})
+        vol = ticker.get('quoteVolume')
+        if vol:
+            vol_list.append((symbol, vol))
 
+    # Sort by descending volume, take top 5
+    top_symbols = [s for s, _ in sorted(vol_list, key=lambda x: x[1], reverse=True)[:5]]
     print("Top Futures Symbols by 24h Volume:", top_symbols)
 
     for sym in top_symbols:
