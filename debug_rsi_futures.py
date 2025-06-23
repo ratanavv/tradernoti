@@ -20,13 +20,16 @@ def main():
     markets = binance.load_markets()
     tickers = binance.fetch_tickers()
 
-    # Filter USDT perpetual futures
+    # Filter USDT perpetual futures only
     symbols = []
     for symbol, ticker in tickers.items():
         if symbol not in markets:
             continue
         market = markets[symbol]
-        if market.get('quote') == 'USDT' and market.get('contract') and market.get('future'):
+        if (market.get('quote') == 'USDT'
+            and market.get('contract')
+            and market.get('future')
+            and market.get('info', {}).get('contractType') == 'PERPETUAL'):
             ticker_volume = ticker.get('quoteVolume', 0)
             if ticker_volume:
                 symbols.append((symbol, ticker_volume))
